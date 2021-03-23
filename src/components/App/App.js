@@ -1,24 +1,17 @@
 import React, { useEffect } from 'react'
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
-import { Layout, Menu, Icon, Tag } from 'antd'
+import { Route, Switch, Redirect, withRouter, Link } from 'react-router-dom'
+import { Layout, Tag, Icon } from 'antd'
 
-import './App.less'
-
+import { NavMenu } from 'components'
 import { ROUTES, MENU } from 'routes'
 
-import { localStorage, STATE_KEY, STORAGE_KEYS } from 'utils'
-
 import 'antd/dist/antd.css'
-
+import './App.less'
 //STORE
 import { observer } from 'mobx-react'
 import { layoutStore, authStore } from 'storages'
 
-const { Content, Footer, Sider } = Layout
-const { SubMenu } = Menu
-const {
-  AUTH
-} = STORAGE_KEYS
+const { Content, Footer, Header } = Layout
 
 const App = props => {
   const {
@@ -38,12 +31,28 @@ const App = props => {
 
   return (
     <Layout>
-      <Layout>
-        <Content>
-          <div className='layout-content-inner'>{children}</div>
-        </Content>
-        <Footer style={{textAlign: 'center'}}>Ультрафреш</Footer>
-      </Layout>
+      <NavMenu
+        logout={logout}
+        items={MENU}
+      />
+      <Content>
+        <div className='layout-content-inner'>
+          <Switch>
+            {
+              ROUTES.map((route, i) => (
+                <Route
+                  key={i}
+                  exact
+                  { ...route }
+                />
+              ))
+            }
+
+            <Redirect to={ROUTES[0].path} />
+          </Switch>
+        </div>
+      </Content>
+      <Footer style={{textAlign: 'center'}}>Ультрафреш</Footer>
     </Layout>
   )
 }

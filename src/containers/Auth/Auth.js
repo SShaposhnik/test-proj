@@ -11,7 +11,11 @@ import { layoutStore, authStore } from 'storages'
 import './Auth.less'
 
 const { AUTH } = STORAGE_KEYS
-const Auth = () => {
+const Auth = props => {
+  const {
+    history
+  } = props
+
   const onFinish = (values) => {
     const { userName, password } = values
     const userData = authData.users.find(user => user.login === userName)
@@ -28,19 +32,13 @@ const Auth = () => {
       })
 
       authStore.loginSuccess('12345', userData)
+      history.push('/')
     } else {
       notification.error({
         message: 'Ошибка авторизации, пароль не верный'
       })
     }
   }
-
-  // const handlerChanger = ({target: { value, name }}) => {
-  //   setInputValue(prev => ({
-  //     ...prev,
-  //     [name]: value
-  //   }))
-  // }
 
   return (
     <Row align='center' justify='center'>
