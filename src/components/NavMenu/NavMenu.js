@@ -1,6 +1,8 @@
 import React from 'react'
-import { Menu } from 'antd';
-import { Route, Switch, Redirect, withRouter, Link } from 'react-router-dom'
+import { Menu } from 'antd'
+import { Link } from 'react-router-dom'
+
+import './NavMenu.less'
 
 const NavMenu = props => {
   const {
@@ -12,8 +14,11 @@ const NavMenu = props => {
     return (
       items.map((menuBtn, index) => (
         <Menu.Item key={index}>
-          <span className='nav-text'>{menuBtn.name}</span>
-          <Link to={menuBtn.to}/>
+          <Link to={menuBtn.to}>
+            <span className='nav-menu__btn-text'>
+              {menuBtn.name}
+            </span>
+          </Link>
         </Menu.Item>
       ))
     )
@@ -21,16 +26,17 @@ const NavMenu = props => {
 
   return (
     <Menu
-      theme='dark'
+      className='nav-menu'
+      theme='light'
       mode="horizontal"
-      defaultSelectedKeys={['1']}
+      defaultSelectedKeys={['0']}
     >
-      {/* <div> */}
-        {renderMenu()}
-        <Menu.Item key={items.length} onClick={logout}>
-          <span className='nav-text'>Выход</span>
-        </Menu.Item>
-      {/* </div> */}
+      {renderMenu()}
+      <Menu.Item key={items.length} onClick={logout}>
+        <span className='nav-menu__btn-text'>
+          Выход
+        </span>
+      </Menu.Item>
     </Menu>
   )
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 
 import {
-  Auth,
-  Home
+  Home,
+  Favorites
 } from 'containers'
 
 import {
@@ -18,7 +18,7 @@ const MENU = [
   {
     name: 'Избранное',
     icon: 'favorite',
-    to: '/auth',
+    to: '/favorites',
   },
 ]
 
@@ -26,6 +26,10 @@ const ROUTES = [
   {
     path: '/home',
     component: Home
+  },
+  {
+    path: '/favorites',
+    component: Favorites
   },
 ]
 

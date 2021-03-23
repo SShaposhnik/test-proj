@@ -36,7 +36,7 @@ const App = props => {
         items={MENU}
       />
       <Content>
-        <div className='layout-content-inner'>
+        <div className='site-layout-content'>
           <Switch>
             {
               ROUTES.map((route, i) => (

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Form, Input, Button, Row, Col, notification} from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import React from 'react'
+import { Form, Input, Button, Row, Col, notification} from 'antd'
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { Redirect } from 'react-router'
 
-import { localStorage, STORAGE_KEYS } from 'utils'
+import { STORAGE_KEYS } from 'utils'
 import authData from '../../authData.json'
 // STORE
 import { observer } from 'mobx-react'
-import { layoutStore, authStore } from 'storages'
+import { authStore } from 'storages'
 
 import './Auth.less'
 
@@ -15,6 +16,8 @@ const Auth = props => {
   const {
     history
   } = props
+
+  const { isAuth } = authStore
 
   const onFinish = (values) => {
     const { userName, password } = values
@@ -38,6 +41,10 @@ const Auth = props => {
         message: 'Ошибка авторизации, пароль не верный'
       })
     }
+  }
+
+  if (isAuth) {
+    return <Redirect to='/'/>
   }
 
   return (
