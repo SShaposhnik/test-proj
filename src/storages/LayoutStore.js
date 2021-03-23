@@ -1,5 +1,6 @@
 import {
   makeObservable,
+  makeAutoObservable,
   observable,
   computed,
   action,
@@ -12,21 +13,17 @@ configure({ enforceActions: 'observed' })
 class LayoutStore {
   user = {
     id: null,
-    name: null
+    name: null,
   }
 
   constructor() {
-    // makeAutoObservable(this)
     makeObservable(this, {
       user: observable,
       setUser: action,
       userInfo: computed
     })
 
-    this.user = {
-      id: null,
-      name: null
-    }
+    this.user = this.user
   }
 
   /**

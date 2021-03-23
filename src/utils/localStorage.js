@@ -1,7 +1,7 @@
 const STATE_KEY = 'test_proj_state'
 
 const STORAGE_KEYS = {
-
+  AUTH: 'auth',
 }
 
 class LocalStorage {
@@ -109,12 +109,14 @@ class LocalStorage {
    * @param key {String} - ключ значения
    */
   has (key) {
+    console.log(key);
     const store = this._load()
+
     if (store) {
       return key in store
     }
 
-    return null
+    return false
   }
 }
 
