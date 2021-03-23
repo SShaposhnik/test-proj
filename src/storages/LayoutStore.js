@@ -1,14 +1,27 @@
 import {
-  configure,
+  makeObservable,
+  observable,
+  computed,
+  action,
   toJS,
-  makeAutoObservable
+  configure
 } from 'mobx'
 
 configure({ enforceActions: 'observed' })
 
 class LayoutStore {
+  user = {
+    id: null,
+    name: null
+  }
+
   constructor() {
-    makeAutoObservable(this)
+    // makeAutoObservable(this)
+    makeObservable(this, {
+      user: observable,
+      setUser: action,
+      userInfo: computed
+    })
 
     this.user = {
       id: null,
