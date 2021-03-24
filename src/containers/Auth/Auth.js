@@ -75,7 +75,7 @@ const Auth = props => {
               />
             </Form.Item>
             <Form.Item
-              name="password"
+              name='password'
               rules={[
                 {
                   required: true,

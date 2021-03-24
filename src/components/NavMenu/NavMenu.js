@@ -29,7 +29,7 @@ const NavMenu = props => {
       className='nav-menu'
       theme='light'
       mode='horizontal'
-      defaultSelectedKeys='0'
+      defaultSelectedKeys={['0']}
     >
       {renderMenu()}
       <Menu.Item key={items.length} onClick={logout}>

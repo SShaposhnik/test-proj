@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Row, Col, Button } from 'antd'
 import cx from 'classnames'
 
@@ -53,29 +54,31 @@ const VideosGrid = props => {
       {
         videos?.map(video => (
           <Col span={activeGridType === 'grid' ? 6 : 24}>
-            <div
-              className={cx(
-              'videos-cart', {
-                'lines-type': activeGridType === 'lines'
-              }
-            )}
-            >
-              <div className='videos-cart__image'>
-                <img
-                  className='img'
-                  src={video.snippet.thumbnails.medium.url}
-                  alt={video.snippet.thumbnails.title}
-                />
-              </div>
-              <div className='videos-cart__content'>
-                <div className='videos-cart__content_title'>
-                  {video.snippet.title}
+            <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`} target='_blank'>
+              <div
+                className={cx(
+                'videos-cart', {
+                  'lines-type': activeGridType === 'lines'
+                }
+              )}
+              >
+                <div className='videos-cart__image'>
+                  <img
+                    className='img'
+                    src={video.snippet.thumbnails.medium.url}
+                    alt={video.snippet.thumbnails.title}
+                  />
                 </div>
-                <div className='videos-cart__content_description'>
-                  {video.snippet.description}
+                <div className='videos-cart__content'>
+                  <div className='videos-cart__content_title'>
+                    {video.snippet.title}
+                  </div>
+                  <div className='videos-cart__content_description'>
+                    {video.snippet.description}
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           </Col>
         ))
       }

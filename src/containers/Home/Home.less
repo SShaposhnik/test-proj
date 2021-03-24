@@ -9,20 +9,22 @@
   }
 
   &__search-block {
+    position: relative;
     display: flex;
     justify-content: center;
     width: 100%;
     margin-bottom: 50px;
 
     .search {
-      width: 500px;
+      width: calc(100% - 80px);
     }
 
     .btn {
-      min-width: 80px;
+      // min-width: 80px;
 
       button {
         width: 100%;
+        height: 100%;
       }
     }
   }
@@ -34,10 +36,6 @@
 
   div {
     justify-content: flex-start;
-
-    .search {
-      width: calc(100% - 80px)
-    }
   }
 }
 

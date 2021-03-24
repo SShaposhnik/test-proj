@@ -19,12 +19,12 @@ const MENU = [
 
 const ROUTES = [
   {
-    path: '/favorites',
-    component: Favorites
-  },
-  {
     path: '/home',
     component: Home
+  },
+  {
+    path: '/favorites',
+    component: Favorites
   },
 ]
 

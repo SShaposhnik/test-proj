@@ -21,11 +21,13 @@ class LayoutStore {
     name: null,
   }
   savedResult = []
+  isOpenFavoriteModal = false
 
   constructor() {
     makeObservable(this, {
       user: observable,
       savedResult: observable,
+      isOpenFavoriteModal: observable,
 
       setUser: action,
       saveSearch: action,
@@ -34,8 +36,17 @@ class LayoutStore {
       userInfo: computed
     })
 
-    this.user = this.user
-    this.savedResult = this.loadSavedResult
+    // this.user = this.user
+    // this.savedResult = this.loadSavedResult
+    // this.isOpenFavoriteModal = this.isOpenFavoriteModal
+  }
+
+  /**
+   * Open/Close favorite modal
+   * @param value {boolean}
+   */
+  toggleIsOpenFavoriteModal(value) {
+    this.isOpenFavoriteModal = value
   }
 
   /**

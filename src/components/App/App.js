@@ -48,7 +48,7 @@ const App = props => {
               ))
             }
 
-            {/* <Redirect to={ROUTES[0].path} /> */}
+            <Redirect to={ROUTES[0].path} />
           </Switch>
         </div>
       </Content>

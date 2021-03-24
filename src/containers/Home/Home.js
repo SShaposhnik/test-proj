@@ -10,6 +10,8 @@ import {
 import cx from 'classnames'
 
 import VideosGrid from '../../components/VideosGrid/VideosGrid'
+import AddFavoriteModal from '../../components/AddFavoriteModal/AddFavoriteModal'
+import { IconFavorite } from 'components/icons'
 
 import { YoutubeService } from 'services'
 
@@ -22,39 +24,18 @@ import { layoutStore } from 'storages'
 const { Title } = Typography
 const SEARCH_STATE = {
   text: null,
+  name: null,
   maxResult: 12
 }
 
 const Home = props => {
-  const { loadSavedResult } = layoutStore
+
+  const { loadSavedResult, isOpenFavoriteModal } = layoutStore
+
   const [loading, setLoading] = useState(false)
   const [videos, setVideos] = useState(null)
   const [videosState, setVideosState] = useState(SEARCH_STATE)
-  const getVideoStats = async (id, index) => {
-    setLoading(true)
-
-    try {
-      const {data: { items }} = await YoutubeService.getVideoStats(id, videosState.apiKey)
-      setVideos(prev => {
-        let arr = prev
-
-        arr[index] = {
-          ...arr[index],
-          viewCount: items[0].statistics.viewCount
-        }
-
-        return arr
-      })
-
-    } catch (error) {
-      notification.error({
-        message: 'Ошибка при получении статистики'
-      })
-    }
-
-    setLoading(false)
-  }
-
+  console.log(videosState);
   const getVideos = async () => {
     setLoading(true)
 
@@ -85,6 +66,21 @@ const Home = props => {
     }))
   }
 
+  const toggleOpenModal = (value) => {
+    layoutStore.toggleIsOpenFavoriteModal(value)
+  }
+
+  const onSave = () => {
+    toggleOpenModal(false)
+    layoutStore.saveSearch(videosState)
+  }
+
+  const suffix = (
+    <Button type='text' onClick={() => toggleOpenModal(true)}>
+      <IconFavorite width={20} height={20} fill='blue'/>
+    </Button>
+  )
+
   return (
     <div
       className={cx(
@@ -106,6 +102,7 @@ const Home = props => {
             className='input'
             placeholder='Что хотите посмотреть?'
             onChange={changeHandler}
+            suffix={suffix}
           />
         </Col>
         <Col className='btn'>
@@ -122,6 +119,14 @@ const Home = props => {
         videos={videos}
         loading={loading}
         text={videosState.text}
+      />
+
+      <AddFavoriteModal
+        isOpen={isOpenFavoriteModal}
+        onClose={() => toggleOpenModal(false)}
+        onOk={onSave}
+        state={videosState}
+        setState={setVideosState}
       />
     </div>
   )
