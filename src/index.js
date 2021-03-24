@@ -7,29 +7,24 @@ import { App } from 'components'
 
 const rootElement = document.getElementById('root')
 
-const MainComponent = () => {
-  const [ userProfile, setUserProfile ] = useState(null)
-
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route
-          path={'/auth'}
-          component={Auth}
-          exact
-        />
-        <Route
-          path={'/'} render={
-          (props) => (
-            <App
-              profile={userProfile}
-              onProfileLoaded={(profile) => setUserProfile(profile)}
-              {...props}/>
-          )}
-        />
-      </Switch>
-    </BrowserRouter>
-  )
-}
+const MainComponent = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route
+        path={'/auth'}
+        component={Auth}
+        exact
+      />
+      <Route
+        path={'/'} render={
+        (props) => (
+          <App
+            {...props}
+          />
+        )}
+      />
+    </Switch>
+  </BrowserRouter>
+)
 
 ReactDOM.render(<MainComponent />, rootElement)

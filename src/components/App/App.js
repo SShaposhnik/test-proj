@@ -20,7 +20,6 @@ const App = props => {
     history
   } = props
 
-  const { getUserInfo } = layoutStore
   const { isAuth } = authStore
 
   useEffect(() => {

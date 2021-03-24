@@ -8,7 +8,7 @@ import {
   configure
 } from 'mobx'
 
-import { STORAGE_KEYS, localStorage } from 'utils'
+import { STORAGE_KEYS, localStorage, findUser } from 'utils'
 
 configure({ enforceActions: 'observed' })
 
@@ -35,9 +35,7 @@ class LayoutStore {
       setSearchState: action,
       updateSearchItems: action,
 
-      getSavedResult: computed,
-      getUserInfo: computed,
-      getSaveState: computed
+      savedUserResults: computed
     })
   }
 
@@ -46,18 +44,12 @@ class LayoutStore {
    * @param state {object}
    */
   updateSearchItems(state) {
-    const { index } = state
+    const { itemId } = state
+    const index = this.savedResult.findIndex(item => item.itemId === itemId)
 
     this.savedResult[index] = state
 
     localStorage.set(SAVED_RESULTS, this.savedResult)
-  }
-
-  /**
-   * Load save state for the search
-   */
-  get getSaveState() {
-    return toJS(this.saveState)
   }
 
   /**
@@ -89,22 +81,12 @@ class LayoutStore {
   }
 
   /**
-   * Load user info
-   */
-  get getUserInfo() {
-    return toJS(this.user)
-  }
-
-  /**
    * Load saved relust in local storage
    */
-  get getSavedResult() {
-    const { id } = this.user
+  get savedUserResults() {
+    const userId = this.user.id
 
-    const findUserState = localStorage.get(SAVED_RESULTS).find(
-      state => state.userId === id)
-
-    return toJS(this.savedResult)
+    return toJS(this.savedResult.filter(item => item.userId === userId))
   }
 
   /**
@@ -112,12 +94,13 @@ class LayoutStore {
    * @param state {object}
    */
    saveSearchItem(state) {
-    let saved = this.getSavedResult
+    let saved = this.savedResult
 
     const newList = [
       ...saved,
       {
         ...state,
+        itemId: this.savedResult.length + 1,
         userId: this.user.id
       }
     ]

@@ -29,20 +29,19 @@ const SEARCH_STATE = {
 }
 
 const Home = () => {
-  const { isOpenFavoriteModal, getSaveState, getUserInfo } = layoutStore
+  const { isOpenFavoriteModal, saveState } = layoutStore
 
   const [loading, setLoading] = useState(false)
   const [videos, setVideos] = useState(null)
   const [videosState, setVideosState] = useState(SEARCH_STATE)
 
   useEffect(() => {
-    if (getSaveState) {
-      setVideosState(getSaveState)
-      getVideos(getSaveState)
+    if (saveState) {
+      setVideosState(saveState)
+      getVideos(saveState)
     }
-  }, [getSaveState])
+  }, [saveState])
 
-  console.log(getUserInfo);
 
   const getVideos = async (state) => {
     setLoading(true)

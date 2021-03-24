@@ -6,7 +6,7 @@ import { Redirect } from 'react-router'
 import authData from '../../authData.json'
 // STORE
 import { observer } from 'mobx-react'
-import { authStore } from 'storages'
+import { authStore, layoutStore } from 'storages'
 
 import './Auth.less'
 
@@ -32,7 +32,9 @@ const Auth = props => {
         message: `Здравствуйте ${userData.name}`
       })
 
-      authStore.loginSuccess(`userId${userData.id}`, userData)
+      authStore.loginSuccess(`userId${userData.id}`)
+      layoutStore.setUser(userData.id, userData.name)
+
       history.push('/')
     } else {
       notification.error({

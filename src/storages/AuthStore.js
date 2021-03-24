@@ -38,7 +38,6 @@ class AuthStore {
     localStorage.set(AUTH, {
       token
     })
-    layoutStore.setUser(user.id, user.name)
 
     this.token = token
     this.isAuth = !!token
@@ -52,7 +51,6 @@ class AuthStore {
       token: null
     })
 
-    layoutStore.setUser(null, null)
     this.token = null
     this.isAuth = false
   }

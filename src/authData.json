@@ -2,21 +2,21 @@
   "users": [
     {
       "id": 1,
-      "login": "super",
+      "login": "1",
       "name": "Super",
-      "password": "super"
+      "password": "1"
     },
     {
       "id": 2,
-      "login": "admin",
+      "login": "2",
       "name": "Admin",
-      "password": "admin"
+      "password": "2"
     },
     {
       "id": 3,
-      "login": "sergey",
+      "login": "3",
       "name": "Sergey",
-      "password": "sergey"
+      "password": "3"
     }
   ]
 }

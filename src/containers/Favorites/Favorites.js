@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Button, Typography } from 'antd'
 import { EditOutlined, DeleteOutlined} from '@ant-design/icons'
@@ -20,14 +20,14 @@ const SEARCH_STATE = {
 
 const Favorites = () => {
   const [videosState, setVideosState] = useState(SEARCH_STATE)
-  const { getSavedResult, isOpenFavoriteModal, getSaveState } = layoutStore
-  console.log(getSavedResult);
+  const { isOpenFavoriteModal, savedUserResults } = layoutStore
+
   const removeSaveItem = (index) => {
     layoutStore.removeSearchItem(index)
   }
 
-  const doSearch = (item, index) => {
-    setVideosState({...item, index})
+  const doSearch = (item) => {
+    setVideosState(item)
     toggleOpenModal(true)
   }
 
@@ -48,16 +48,18 @@ const Favorites = () => {
             Избранное
           </Title>
         </Col>
+
         {
-          getSavedResult.length === 0 && (
+          savedUserResults.length === 0 && (
             <Col span={24}>
-              В сохраненном пусто :(
+              В избранном пусто :(
             </Col>
           )
         }
+
         <Col span={24}>
           {
-            getSavedResult.map((item, index) => (
+            savedUserResults.map((item, index) => (
               <Col span={20}>
                 <div className='item-content'>
                   <div className='favorites-cart'>
@@ -73,7 +75,7 @@ const Favorites = () => {
                       <Button
                         icon={<EditOutlined />}
                         type='primary'
-                        onClick={() => doSearch(item, index)}
+                        onClick={() => doSearch(item)}
                       />
                       <Button
                         icon={<DeleteOutlined />}
