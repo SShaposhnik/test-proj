@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Button, Typography } from 'antd'
 import { EditOutlined, DeleteOutlined} from '@ant-design/icons'

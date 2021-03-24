@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Row, Col, Button, Spin } from 'antd'
-import { LoadingOutlined } from '@ant-design/icons';
+import { Row, Col, Button } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 import cx from 'classnames'
 
 import { IconGrid, IconBurger } from 'components/icons'

@@ -8,7 +8,7 @@ import {
   configure
 } from 'mobx'
 
-import { STORAGE_KEYS, localStorage, findUser } from 'utils'
+import { STORAGE_KEYS, localStorage } from 'utils'
 
 configure({ enforceActions: 'observed' })
 

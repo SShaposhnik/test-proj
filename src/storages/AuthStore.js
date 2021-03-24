@@ -1,14 +1,11 @@
 import {
-  makeAutoObservable,
   makeObservable,
   observable,
-  computed,
   action,
   configure
 } from 'mobx'
 
 import localStorage, { STORAGE_KEYS } from 'utils/localStorage'
-import { layoutStore } from 'storages'
 
 configure({ enforceActions: 'observed' })
 
@@ -34,7 +31,7 @@ class AuthStore {
    * Успешная авторизация, установка токена в localStorage
    * @param token {string}
    */
-  loginSuccess (token, user) {
+  loginSuccess (token) {
     localStorage.set(AUTH, {
       token
     })

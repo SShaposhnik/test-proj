@@ -9,7 +9,7 @@ import {
   Select
 } from 'antd'
 
-import { FILTERS, DEFAULT_FILTER } from 'constants/filterValue'
+import { FILTERS } from 'constants/filterValue'
 const { Option } = Select
 
 const AddFavoriteModal = props => {

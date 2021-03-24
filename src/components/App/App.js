@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Route, Switch, Redirect, withRouter, Link } from 'react-router-dom'
-import { Layout, Tag, Icon } from 'antd'
+import React, { useEffect } from 'react'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import { Layout } from 'antd'
 
 import { NavMenu } from 'components'
 import { ROUTES, MENU } from 'routes'

@@ -5,6 +5,7 @@ import { Redirect } from 'react-router'
 
 import authData from '../../authData.json'
 import sibdevLogo from 'assets/sibdevLogo.png'
+
 // STORE
 import { observer } from 'mobx-react'
 import { authStore, layoutStore } from 'storages'
