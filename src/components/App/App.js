@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Route, Switch, Redirect, withRouter, Link } from 'react-router-dom'
 import { Layout, Tag, Icon } from 'antd'
 
@@ -9,15 +9,15 @@ import 'antd/dist/antd.css'
 import './App.less'
 //STORE
 import { observer } from 'mobx-react'
-import { layoutStore, authStore } from 'storages'
+import { authStore } from 'storages'
 
-const { Content, Footer, Header } = Layout
+const { Content } = Layout
 
 const App = props => {
   const {
-    children,
     history
   } = props
+
   const { isAuth } = authStore
 
   const logout = () => {
@@ -39,20 +39,19 @@ const App = props => {
         <div className='site-layout-content'>
           <Switch>
             {
-              ROUTES.map((route, i) => (
+              ROUTES.map((route, index) => (
                 <Route
-                  key={i}
+                  key={index}
                   exact
                   { ...route }
                 />
               ))
             }
 
-            <Redirect to={ROUTES[0].path} />
+            {/* <Redirect to={ROUTES[0].path} /> */}
           </Switch>
         </div>
       </Content>
-      <Footer style={{textAlign: 'center'}}>Ультрафреш</Footer>
     </Layout>
   )
 }

@@ -2,6 +2,7 @@ const STATE_KEY = 'test_proj_state'
 
 const STORAGE_KEYS = {
   AUTH: 'auth',
+  SAVED_RESULTS: 'savedResults'
 }
 
 class LocalStorage {

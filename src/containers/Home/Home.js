@@ -9,24 +9,27 @@ import {
 } from 'antd'
 import cx from 'classnames'
 
-import { VideosGrid } from 'components'
+import VideosGrid from '../../components/VideosGrid/VideosGrid'
 
 import { YoutubeService } from 'services'
 
 import './Home.less'
 
+// STORE
+import { observer } from 'mobx-react'
+import { layoutStore } from 'storages'
+
 const { Title } = Typography
 const SEARCH_STATE = {
   text: null,
-  maxResult: 12,
-  apiKey: process.env.REACT_APP_YOUTUBE_API_KEY
+  maxResult: 12
 }
 
-const Home = () => {
+const Home = props => {
+  const { loadSavedResult } = layoutStore
   const [loading, setLoading] = useState(false)
-  const [videos, setVideos] = useState([])
+  const [videos, setVideos] = useState(null)
   const [videosState, setVideosState] = useState(SEARCH_STATE)
-
   const getVideoStats = async (id, index) => {
     setLoading(true)
 
@@ -56,9 +59,14 @@ const Home = () => {
     setLoading(true)
 
     try {
-      const { data: { items } } = await YoutubeService.getVideos(videosState)
+      const { data: { items } } = await YoutubeService.getVideos({
+        ...videosState,
+        apiKey: process.env.REACT_APP_YOUTUBE_API_KEY
+      })
+
       setVideos(items)
 
+      layoutStore.saveSearch(videosState)
     } catch (error) {
       notification.error({
         message: 'Ошибка при получении видео'
@@ -110,37 +118,13 @@ const Home = () => {
           </Button>
         </Col>
       </Row>
-      <Row gutter={[24, 24]}>
-        <div>
-          Видео по запросу
-        </div>
-        {
-          videos?.map(video => (
-            <Col span={6}>
-              <div className='videos-cart' >
-                <div className='videos-cart__image'>
-                  <img
-                    className='img'
-                    src={video.snippet.thumbnails.medium.url}
-                    alt={video.snippet.thumbnails.title}
-                  />
-                </div>
-                <div className='videos-cart__title'>
-                  {video.snippet.title}
-                </div>
-                <div className='videos-cart__description'>
-                  {video.snippet.description}
-                </div>
-                {/* <div className='videos-cart__view-count'>
-                  {video.snippet.viewCount}
-                </div> */}
-              </div>
-            </Col>
-          ))
-        }
-      </Row>
+      <VideosGrid
+        videos={videos}
+        loading={loading}
+        text={videosState.text}
+      />
     </div>
   )
 }
 
-export default Home
+export default observer(Home)
