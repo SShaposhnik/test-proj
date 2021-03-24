@@ -2,6 +2,7 @@
   padding: 10px;
   box-sizing: border-box;
   height: 250px;
+  max-width: 250px;
   overflow: hidden;
 
   border-radius: 12px;
@@ -60,6 +61,8 @@
 .lines-type {
   display: flex;
   height: max-content;
+  max-width: none;
+  width: 100%;
 
 
   .videos-cart__content {
@@ -89,4 +92,14 @@
   svg {
     fill: green;
   }
+}
+
+.videogrid-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+  width: 100%;
+  margin-top: 3em;
+
+  font-size: 50px;
 }

@@ -7,12 +7,13 @@ const AddFavoriteModal = props => {
     onOk,
     isOpen,
     state,
-    setState
+    setState,
+    type = null
   } = props
 
   const [form] = Form.useForm()
 
-  const changeHandler = (event) => {
+  const changeHandlerName = (event) => {
     const {target: { value }} = event
 
     setState(prev => ({
@@ -28,12 +29,24 @@ const AddFavoriteModal = props => {
     }))
   }
 
+  const changeHandlerText = ({ target: { value }}) => {
+    setState(prev => ({
+      ...prev,
+      text: value
+    }))
+  }
+
   useEffect(() => {
     form.setFieldsValue({
       text: state.text,
-      maxResult: state.maxResult
+      maxResult: state.maxResult,
+      name: state.name
     })
-  }, [isOpen])
+  }, [state])
+
+  const onFinish = () => {
+    onOk()
+  }
 
   return (
     <Modal
@@ -45,7 +58,7 @@ const AddFavoriteModal = props => {
       <Form
         name='favorite-modal'
         initialValues={{ remember: true }}
-        onFinish={onOk}
+        onFinish={onFinish}
         form={form}
       >
         <Form.Item
@@ -60,12 +73,15 @@ const AddFavoriteModal = props => {
         >
           <Input
             value={state.name}
-            onChange={changeHandler}
+            onChange={changeHandlerName}
           />
         </Form.Item>
 
         <Form.Item name='text' label='Запрос'>
-          <Input readOnly/>
+          <Input
+            readOnly={type ? false : true}
+            onChange={changeHandlerText}
+          />
         </Form.Item>
 
         <Form.Item
@@ -87,7 +103,7 @@ const AddFavoriteModal = props => {
           </Form.Item>
           <Form.Item>
             <Button type='primary' htmlType='submit'>
-              Войти
+              Сохранить
             </Button>
           </Form.Item>
         </Col>

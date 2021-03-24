@@ -12,33 +12,60 @@ import { STORAGE_KEYS, localStorage } from 'utils'
 
 configure({ enforceActions: 'observed' })
 
-const {
-  SAVED_RESULTS
-} = STORAGE_KEYS
+const { SAVED_RESULTS } = STORAGE_KEYS
 class LayoutStore {
   user = {
     id: null,
     name: null,
   }
-  savedResult = []
+  savedResult = localStorage.get(SAVED_RESULTS) || []
   isOpenFavoriteModal = false
+  saveState = null
 
   constructor() {
     makeObservable(this, {
       user: observable,
       savedResult: observable,
       isOpenFavoriteModal: observable,
+      saveState: observable,
 
       setUser: action,
-      saveSearch: action,
+      saveSearchItem: action,
+      removeSearchItem: action,
+      setSearchState: action,
+      updateSearchItems: action,
 
-      loadSavedResult: computed,
-      userInfo: computed
+      getSavedResult: computed,
+      getUserInfo: computed,
+      getSaveState: computed
     })
+  }
 
-    // this.user = this.user
-    // this.savedResult = this.loadSavedResult
-    // this.isOpenFavoriteModal = this.isOpenFavoriteModal
+  /**
+   * Update seach item in local storage
+   * @param state {object}
+   */
+  updateSearchItems(state) {
+    const { index } = state
+
+    this.savedResult[index] = state
+
+    localStorage.set(SAVED_RESULTS, this.savedResult)
+  }
+
+  /**
+   * Load save state for the search
+   */
+  get getSaveState() {
+    return toJS(this.saveState)
+  }
+
+  /**
+   * Save on search state for search on home
+   * @param state {object}
+   */
+  setSearchState(state) {
+    this.saveState = state
   }
 
   /**
@@ -61,28 +88,52 @@ class LayoutStore {
     }
   }
 
-  get userInfo() {
+  /**
+   * Load user info
+   */
+  get getUserInfo() {
     return toJS(this.user)
   }
 
   /**
    * Load saved relust in local storage
    */
-  get loadSavedResult() {
-    return localStorage.get(SAVED_RESULTS) || []
+  get getSavedResult() {
+    const { id } = this.user
+
+    const findUserState = localStorage.get(SAVED_RESULTS).find(
+      state => state.userId === id)
+
+    return toJS(this.savedResult)
   }
 
   /**
    * Save search in local storage
    * @param state {object}
    */
-   saveSearch(state) {
-    let saved = this.loadSavedResult
+   saveSearchItem(state) {
+    let saved = this.getSavedResult
 
-    localStorage.set(SAVED_RESULTS, [
+    const newList = [
       ...saved,
-      state
-    ])
+      {
+        ...state,
+        userId: this.user.id
+      }
+    ]
+
+    this.savedResult = newList
+    localStorage.set(SAVED_RESULTS, newList)
+  }
+
+  /**
+   * Delete search item from local storage
+   * @param index {number}
+   */
+  removeSearchItem(index) {
+    this.savedResult =  this.savedResult.filter((item, itemIndex) => itemIndex !== index)
+
+    localStorage.set(SAVED_RESULTS, this.savedResult)
   }
 }
 

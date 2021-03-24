@@ -3,7 +3,6 @@ import { Form, Input, Button, Row, Col, notification} from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { Redirect } from 'react-router'
 
-import { STORAGE_KEYS } from 'utils'
 import authData from '../../authData.json'
 // STORE
 import { observer } from 'mobx-react'
@@ -11,7 +10,6 @@ import { authStore } from 'storages'
 
 import './Auth.less'
 
-const { AUTH } = STORAGE_KEYS
 const Auth = props => {
   const {
     history
@@ -34,7 +32,7 @@ const Auth = props => {
         message: `Здравствуйте ${userData.name}`
       })
 
-      authStore.loginSuccess('12345', userData)
+      authStore.loginSuccess(`userId${userData.id}`, userData)
       history.push('/')
     } else {
       notification.error({

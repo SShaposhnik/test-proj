@@ -28,26 +28,33 @@ const SEARCH_STATE = {
   maxResult: 12
 }
 
-const Home = props => {
-
-  const { loadSavedResult, isOpenFavoriteModal } = layoutStore
+const Home = () => {
+  const { isOpenFavoriteModal, getSaveState, getUserInfo } = layoutStore
 
   const [loading, setLoading] = useState(false)
   const [videos, setVideos] = useState(null)
   const [videosState, setVideosState] = useState(SEARCH_STATE)
-  console.log(videosState);
-  const getVideos = async () => {
+
+  useEffect(() => {
+    if (getSaveState) {
+      setVideosState(getSaveState)
+      getVideos(getSaveState)
+    }
+  }, [getSaveState])
+
+  console.log(getUserInfo);
+
+  const getVideos = async (state) => {
     setLoading(true)
 
     try {
       const { data: { items } } = await YoutubeService.getVideos({
-        ...videosState,
+        ...state,
         apiKey: process.env.REACT_APP_YOUTUBE_API_KEY
       })
 
       setVideos(items)
-
-      layoutStore.saveSearch(videosState)
+      layoutStore.setSearchState(null)
     } catch (error) {
       notification.error({
         message: 'Ошибка при получении видео'
@@ -72,7 +79,7 @@ const Home = props => {
 
   const onSave = () => {
     toggleOpenModal(false)
-    layoutStore.saveSearch(videosState)
+    layoutStore.saveSearchItem(videosState)
   }
 
   const suffix = (
@@ -103,12 +110,13 @@ const Home = props => {
             placeholder='Что хотите посмотреть?'
             onChange={changeHandler}
             suffix={suffix}
+            value={videosState.text}
           />
         </Col>
         <Col className='btn'>
           <Button
             type='primary'
-            onClick={getVideos}
+            onClick={() => getVideos(videosState)}
             disabled={loading || !videosState.text}
           >
             Найти

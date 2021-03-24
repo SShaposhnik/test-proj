@@ -4,12 +4,14 @@ import { Layout, Tag, Icon } from 'antd'
 
 import { NavMenu } from 'components'
 import { ROUTES, MENU } from 'routes'
+import { findUser } from 'utils'
 
 import 'antd/dist/antd.css'
 import './App.less'
+
 //STORE
 import { observer } from 'mobx-react'
-import { authStore } from 'storages'
+import { authStore, layoutStore } from 'storages'
 
 const { Content } = Layout
 
@@ -18,7 +20,22 @@ const App = props => {
     history
   } = props
 
+  const { getUserInfo } = layoutStore
   const { isAuth } = authStore
+
+  useEffect(() => {
+    setUser()
+  }, [])
+
+  const setUser = () => {
+    const userData = findUser()
+
+    if (!userData) {
+      return false
+    }
+
+    layoutStore.setUser(userData.id, userData.name)
+  }
 
   const logout = () => {
     authStore.logout()

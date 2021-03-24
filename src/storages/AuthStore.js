@@ -20,7 +20,6 @@ class AuthStore {
   token = token
 
   constructor() {
-    // makeAutoObservable(this)
     makeObservable(this, {
       token: observable,
       isAuth: observable,
@@ -28,9 +27,6 @@ class AuthStore {
       loginSuccess: action,
       logout: action
     })
-
-    this.isAuth = this.isAuth
-    this.token = this.token
   }
 
 
@@ -56,6 +52,7 @@ class AuthStore {
       token: null
     })
 
+    layoutStore.setUser(null, null)
     this.token = null
     this.isAuth = false
   }

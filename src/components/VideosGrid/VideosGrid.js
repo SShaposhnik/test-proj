@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Row, Col, Button } from 'antd'
+import { Row, Col, Button, Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons';
 import cx from 'classnames'
 
 import { IconGrid, IconBurger } from 'components/icons'
 
 import './VideosGrid.less'
+
+const loader = <LoadingOutlined style={{ fontSize: 100 }} spin />
 
 const VideosGrid = props => {
   const {
@@ -16,16 +18,16 @@ const VideosGrid = props => {
 
   const [activeGridType, setActiveGridType] = useState('lines')
 
-  if (!videos) {
-    return null
-  }
-
   if (loading) {
-    return <div>123</div>
+    return (
+      <div className='videogrid-loader'>
+        {loader}
+      </div>
+    )
   }
 
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={[24, 24]} style={{display: !videos && 'none'}}>
       <Col span={12}>
           Видео по запросу <strong>"{text}"</strong>
       </Col>
@@ -53,32 +55,35 @@ const VideosGrid = props => {
       </Col>
       {
         videos?.map(video => (
-          <Col span={activeGridType === 'grid' ? 6 : 24}>
-            <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`} target='_blank'>
-              <div
-                className={cx(
-                'videos-cart', {
-                  'lines-type': activeGridType === 'lines'
-                }
-              )}
-              >
-                <div className='videos-cart__image'>
-                  <img
-                    className='img'
-                    src={video.snippet.thumbnails.medium.url}
-                    alt={video.snippet.thumbnails.title}
-                  />
-                </div>
-                <div className='videos-cart__content'>
-                  <div className='videos-cart__content_title'>
+          <Col
+            span={activeGridType === 'grid' ? 6 : 24}
+            className='flex jcc'
+          >
+            <div
+              className={cx(
+              'videos-cart', {
+                'lines-type': activeGridType === 'lines'
+              }
+            )}
+            >
+              <div className='videos-cart__image'>
+                <img
+                  className='img'
+                  src={video.snippet.thumbnails.medium.url}
+                  alt={video.snippet.thumbnails.title}
+                />
+              </div>
+              <div className='videos-cart__content'>
+                <div className='videos-cart__content_title'>
+                  <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`} target='_blank'>
                     {video.snippet.title}
-                  </div>
-                  <div className='videos-cart__content_description'>
-                    {video.snippet.description}
-                  </div>
+                  </a>
+                </div>
+                <div className='videos-cart__content_description'>
+                  {video.snippet.description}
                 </div>
               </div>
-            </a>
+            </div>
           </Col>
         ))
       }

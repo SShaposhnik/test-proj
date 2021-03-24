@@ -3,13 +3,13 @@
     {
       "id": 1,
       "login": "super",
-      "name": "Sergey",
+      "name": "Super",
       "password": "super"
     },
     {
-      "id": 3,
+      "id": 2,
       "login": "admin",
-      "name": "Sergey",
+      "name": "Admin",
       "password": "admin"
     },
     {
