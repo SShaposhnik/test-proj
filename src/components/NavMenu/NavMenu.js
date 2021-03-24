@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Menu } from 'antd'
 import { Link } from 'react-router-dom'
 
@@ -8,28 +8,37 @@ const NavMenu = props => {
   const {
     items,
     logout,
+    pathName
   } = props
 
-  const renderMenu = () => {
-    return (
-      items.map((route, index) => (
-        <Menu.Item key={index}>
-          <Link to={route.to}>
-            <span className='nav-menu__btn-text'>
-              {route.name}
-            </span>
-          </Link>
-        </Menu.Item>
-      ))
-    )
-  }
+  const [selectedKeys, setSelectedKeys] = useState('0')
+
+  const renderMenu = () => (
+    items.map((route, index) => (
+      <Menu.Item key={index}>
+        <Link to={route.to}>
+          <span className='nav-menu__btn-text'>
+            {route.name}
+          </span>
+        </Link>
+      </Menu.Item>
+    ))
+  )
+
+  useEffect(() => {
+    items.forEach((route, index) => {
+      if (route.to === pathName) {
+        setSelectedKeys(`${index}`)
+      }
+    })
+  }, [pathName])
 
   return (
     <Menu
       className='nav-menu'
       theme='light'
       mode='horizontal'
-      defaultSelectedKeys={['0']}
+      selectedKeys={selectedKeys}
     >
       {renderMenu()}
       <Menu.Item key={items.length} onClick={logout}>

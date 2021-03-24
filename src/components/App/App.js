@@ -50,6 +50,7 @@ const App = props => {
       <NavMenu
         logout={logout}
         items={MENU}
+        pathName={history.location.pathname}
       />
       <Content>
         <div className='site-layout-content'>

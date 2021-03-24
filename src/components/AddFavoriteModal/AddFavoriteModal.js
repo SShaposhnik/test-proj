@@ -116,7 +116,6 @@ const AddFavoriteModal = props => {
 
         <Form.Item>
           <Select
-            // defaultValue={state.filter}
             value={state.filter}
             onChange={selectHandler}
           >
