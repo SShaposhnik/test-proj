@@ -1,5 +1,16 @@
 import React, { useEffect } from 'react'
-import { Modal, Input, Button, Row, Col, Slider, Form } from 'antd'
+import {
+  Modal,
+  Input,
+  Button,
+  Col,
+  Slider,
+  Form,
+  Select
+} from 'antd'
+
+import { FILTERS, DEFAULT_FILTER } from 'constants/filterValue'
+const { Option } = Select
 
 const AddFavoriteModal = props => {
   const {
@@ -36,11 +47,19 @@ const AddFavoriteModal = props => {
     }))
   }
 
+  const selectHandler = (value) => {
+    setState(prev => ({
+      ...prev,
+      filter: value
+    }))
+  }
+
   useEffect(() => {
     form.setFieldsValue({
       text: state.text,
       maxResult: state.maxResult,
-      name: state.name
+      name: state.name,
+      filter: state.filter
     })
   }, [state])
 
@@ -93,6 +112,22 @@ const AddFavoriteModal = props => {
             max={50}
             onChange={sliderHandler}
           />
+        </Form.Item>
+
+        <Form.Item>
+          <Select
+            // defaultValue={state.filter}
+            value={state.filter}
+            onChange={selectHandler}
+          >
+            {
+              FILTERS.map(filter => (
+                <Option value={filter}>
+                  {filter}
+                </Option>
+              ))
+            }
+          </Select>
         </Form.Item>
 
         <Col style={{display: 'flex'}}>

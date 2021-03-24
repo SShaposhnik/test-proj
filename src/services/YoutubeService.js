@@ -7,8 +7,8 @@ class YoutubeService extends HttpClient {
    * @param maxResult {number}
    * @param apiKey {string}
    */
-  static getVideos({ text, maxResult, apiKey }) {
-    return this.get(`${this.YOUTUBE_API_URL}/search?part=snippet&q=${text}&type=video&maxResults=${maxResult}&key=${apiKey}`).promise
+  static getVideos({ text, maxResult, apiKey, filter }) {
+    return this.get(`${this.YOUTUBE_API_URL}/search?part=snippet&q=${text}&type=video&maxResults=${maxResult}&order=${filter}&key=${apiKey}`).promise
   }
 
   static getVideoStats(id, apiKey) {

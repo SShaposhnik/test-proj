@@ -81,7 +81,7 @@ class LayoutStore {
   }
 
   /**
-   * Load saved relust in local storage
+   * Load filtered saved relust in local storage
    */
   get savedUserResults() {
     const userId = this.user.id

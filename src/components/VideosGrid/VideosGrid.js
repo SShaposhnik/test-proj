@@ -27,7 +27,7 @@ const VideosGrid = props => {
   }
 
   return (
-    <Row gutter={[24, 24]} style={{display: !videos && 'none'}}>
+    <Row gutter={[24, 24]} style={{display: !videos && 'none', width: '100%'}}>
       <Col span={12}>
           Видео по запросу <strong>"{text}"</strong>
       </Col>

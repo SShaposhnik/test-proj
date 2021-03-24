@@ -4,6 +4,7 @@ import { Row, Col, Button, Typography } from 'antd'
 import { EditOutlined, DeleteOutlined} from '@ant-design/icons'
 
 import AddFavoriteModal from '../../components/AddFavoriteModal/AddFavoriteModal'
+import { DEFAULT_FILTER } from 'constants/filterValue'
 
 import './Favorites.less'
 
@@ -15,7 +16,8 @@ const { Title } = Typography
 const SEARCH_STATE = {
   text: null,
   name: null,
-  maxResult: 12
+  maxResult: 12,
+  filter: DEFAULT_FILTER
 }
 
 const Favorites = () => {

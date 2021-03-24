@@ -15,6 +15,7 @@ import { IconFavorite } from 'components/icons'
 
 import { YoutubeService } from 'services'
 
+import { DEFAULT_FILTER } from 'constants/filterValue'
 import './Home.less'
 
 // STORE
@@ -25,7 +26,8 @@ const { Title } = Typography
 const SEARCH_STATE = {
   text: null,
   name: null,
-  maxResult: 12
+  maxResult: 12,
+  filter: DEFAULT_FILTER
 }
 
 const Home = () => {

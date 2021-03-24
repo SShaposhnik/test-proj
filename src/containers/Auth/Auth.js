@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { Redirect } from 'react-router'
 
 import authData from '../../authData.json'
+import sibdevLogo from 'assets/sibdevLogo.png'
 // STORE
 import { observer } from 'mobx-react'
 import { authStore, layoutStore } from 'storages'
@@ -59,7 +60,18 @@ const Auth = props => {
           onFinish={onFinish}
         >
           <div className='login-form__container'>
+            <Form.Item className='login-form__container_title'>
+              <img
+                className='sibdeb-logo-auth'
+                src={sibdevLogo}
+                alt='logo'
+              />
+              <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                Вход
+              </div>
+            </Form.Item>
             <Form.Item
+              className='login-form__container_auth-input'
               name='userName'
               rules={[
                 {
@@ -75,6 +87,7 @@ const Auth = props => {
               />
             </Form.Item>
             <Form.Item
+              className='login-form__container_auth-input'
               name='password'
               rules={[
                 {
@@ -91,7 +104,11 @@ const Auth = props => {
               />
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType='submit' className='login-form-button'>
+              <Button
+                type='primary'
+                htmlType='submit'
+                className='login-form-button'
+              >
                 Войти
               </Button>
             </Form.Item>
