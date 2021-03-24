@@ -114,7 +114,7 @@ const AddFavoriteModal = props => {
           />
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item label='Сортировать по'>
           <Select
             value={state.filter}
             onChange={selectHandler}
@@ -129,7 +129,7 @@ const AddFavoriteModal = props => {
           </Select>
         </Form.Item>
 
-        <Col style={{display: 'flex'}}>
+        <Col style={{display: 'flex', justifyContent: 'space-between'}}>
           <Form.Item>
             <Button htmlType='button' onClick={onClose}>
               Отмена

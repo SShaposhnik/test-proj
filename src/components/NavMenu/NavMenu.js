@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Menu } from 'antd'
 import { Link } from 'react-router-dom'
+import sibdevLogo from 'assets/sibdevLogo.png'
 
 import './NavMenu.less'
 
@@ -40,6 +41,11 @@ const NavMenu = props => {
       mode='horizontal'
       selectedKeys={selectedKeys}
     >
+      <div className='nav-menu__logo'>
+        <img
+          src={sibdevLogo}
+        />
+      </div>
       {renderMenu()}
       <Menu.Item key={items.length} onClick={logout}>
         <span className='nav-menu__btn-text'>
