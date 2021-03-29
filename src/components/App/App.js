@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
 import { Layout } from 'antd'
 
 import { NavMenu } from 'components'
@@ -15,12 +15,10 @@ import { authStore, layoutStore } from 'storages'
 
 const { Content } = Layout
 
-const App = props => {
-  const {
-    history
-  } = props
+const App = () => {
 
   const { isAuth } = authStore
+  const history = useHistory()
 
   useEffect(() => {
     setUser()
@@ -73,4 +71,4 @@ const App = props => {
   )
 }
 
-export default observer(withRouter(App))
+export default observer(App)

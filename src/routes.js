@@ -1,8 +1,3 @@
-// import {
-//   Home,
-//   Favorites
-// } from 'containers'
-
 import Home from './containers/Home/Home'
 import Favorites from './containers/Favorites/Favorites'
 

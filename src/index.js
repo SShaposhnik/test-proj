@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
@@ -16,12 +16,8 @@ const MainComponent = () => (
         exact
       />
       <Route
-        path={'/'} render={
-        (props) => (
-          <App
-            {...props}
-          />
-        )}
+        path={'/'}
+        render={(props) => (<App {...props}/>)}
       />
     </Switch>
   </BrowserRouter>

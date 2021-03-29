@@ -24,7 +24,7 @@ const AddFavoriteModal = props => {
 
   const [form] = Form.useForm()
 
-  const changeHandlerName = (event) => {
+  const nameChangeHandler = (event) => {
     const {target: { value }} = event
 
     setState(prev => ({
@@ -33,21 +33,21 @@ const AddFavoriteModal = props => {
     }))
   }
 
-  const sliderHandler = (value) => {
+  const sliderChangeHandler = (value) => {
     setState(prev => ({
       ...prev,
       maxResult: value
     }))
   }
 
-  const changeHandlerText = ({ target: { value }}) => {
+  const textChangeHandler = ({ target: { value }}) => {
     setState(prev => ({
       ...prev,
       text: value
     }))
   }
 
-  const selectHandler = (value) => {
+  const selectChangeHandler = (value) => {
     setState(prev => ({
       ...prev,
       filter: value
@@ -92,14 +92,17 @@ const AddFavoriteModal = props => {
         >
           <Input
             value={state.name}
-            onChange={changeHandlerName}
+            onChange={nameChangeHandler}
           />
         </Form.Item>
 
-        <Form.Item name='text' label='Запрос'>
+        <Form.Item
+          name='text'
+          label='Запрос'
+        >
           <Input
-            readOnly={type ? false : true}
-            onChange={changeHandlerText}
+            readOnly={!type}
+            onChange={textChangeHandler}
           />
         </Form.Item>
 
@@ -110,14 +113,14 @@ const AddFavoriteModal = props => {
           <Slider
             min={0}
             max={50}
-            onChange={sliderHandler}
+            onChange={sliderChangeHandler}
           />
         </Form.Item>
 
         <Form.Item label='Сортировать по'>
           <Select
             value={state.filter}
-            onChange={selectHandler}
+            onChange={selectChangeHandler}
           >
             {
               FILTERS.map(filter => (

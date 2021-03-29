@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { Form, Input, Button, Row, Col, notification} from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { Redirect } from 'react-router'
@@ -12,12 +13,10 @@ import { authStore, layoutStore } from 'storages'
 
 import './Auth.less'
 
-const Auth = props => {
-  const {
-    history
-  } = props
+const Auth = () => {
 
   const { isAuth } = authStore
+  const history = useHistory()
 
   const onFinish = (values) => {
     const { userName, password } = values

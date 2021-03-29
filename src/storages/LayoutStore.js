@@ -1,6 +1,5 @@
 import {
   makeObservable,
-  makeAutoObservable,
   observable,
   computed,
   action,
