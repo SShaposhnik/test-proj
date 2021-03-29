@@ -75,7 +75,11 @@ const VideosGrid = props => {
               </div>
               <div className='videos-cart__content'>
                 <div className='videos-cart__content_title'>
-                  <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`} target='_blank'>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
                     {video.snippet.title}
                   </a>
                 </div>

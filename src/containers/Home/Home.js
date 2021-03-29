@@ -124,6 +124,7 @@ const Home = () => {
           </Button>
         </Col>
       </Row>
+
       <VideosGrid
         videos={videos}
         loading={loading}

@@ -44,6 +44,7 @@ const NavMenu = props => {
       <div className='nav-menu__logo'>
         <img
           src={sibdevLogo}
+          alt='логотип'
         />
       </div>
       {renderMenu()}
