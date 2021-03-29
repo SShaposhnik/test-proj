@@ -9,7 +9,7 @@ export const findUser = () => {
   const userId = token?.replace('userId', '')
 
   if (!userId) {
-    return false
+    return null
   }
 
   const userData = authData.users.find(user => user.id == userId)

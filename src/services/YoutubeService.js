@@ -1,6 +1,8 @@
 import HttpClient from './HttpClient'
 
 class YoutubeService extends HttpClient {
+  static YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3'
+
   /**
    * Get videos on youtube
    * @param text {string}
